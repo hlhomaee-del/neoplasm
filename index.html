@@ -1,43 +1,4 @@
-<tool_calls>
-<tool_invoke name="read_file">
-<tool_parameter name="relative_path">design-guidelines.md</tool_parameter>
-</tool_invoke>
-</tool_calls>
-Let me check the frontend design guidelines first.
-<tool_calls>
-<tool_invoke name="v1/tools/read">
-<tool_parameter name="relative_path">v1/tools/read</tool_parameter>
-</tool_invoke>
-</tool_calls>
-<tool_calls>
-<tool_invoke name="read_file">
-<tool_parameter name="relative_path">frontend-design/STYLE_GUIDE.md</tool_parameter>
-</tool_invoke>
-</tool_calls>
-<tool_calls>
-<tool_invoke name="view">
-<tool_parameter name="path">/mnt/skills/public/frontend-design</tool_parameter>
-<tool_parameter name="description">Check frontend design skill</tool_parameter>
-</tool_invoke>
-</tool_calls>
-<tool_calls>
-<tool_invoke name="view">
-<tool_parameter name="path">/mnt/skills/public/frontend-design/STYLE_GUIDE.md</tool_parameter>
-<tool_parameter name="description">Read style guide</tool_parameter>
-</tool_invoke>
-</tool_calls>
-<tool_calls>
-<tool_invoke name="view">
-<tool_parameter name="path">/mnt/skills/public/frontend-design/SKILL.md</tool_parameter>
-<tool_parameter name="description">Read frontend design skill</tool_parameter>
-</tool_invoke>
-</tool_calls>
-Now let me build this comprehensive interactive educational tool. Given the massive scope, I'll create it as a single HTML file.
-<tool_calls>
-<tool_invoke name="create_file">
-<tool_parameter name="description">Create the CBCS CPC Neoplasm Coding interactive learning tool</tool_parameter>
-<tool_parameter name="path">/home/claude/neoplasm.html</tool_parameter>
-<tool_parameter name="file_content"><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -416,32 +377,6 @@ h2 { font-size: 1.25rem; }
 }
 </style>
 </head>
-  <script>
-window.addEventListener("load", function () {
-  const suspiciousTexts = [
-    "Let me check the frontend design guidelines first",
-    "Now let me build this comprehensive interactive educational tool",
-    "Quick check the file was created",
-    "Copy to output",
-    "Developed and Instructed by"
-  ];
-
-  document.querySelectorAll("body *").forEach(el => {
-    const text = el.innerText?.trim() || "";
-
-    if (
-      suspiciousTexts.some(t => text.includes(t)) ||
-      text.includes("/mnt/") ||
-      text.includes("<tool_calls>") ||
-      text.includes("tool_invoke") ||
-      text.includes("create_file") ||
-      text.includes("bash_tool")
-    ) {
-      el.style.display = "none";
-    }
-  });
-});
-</script>
 <body>
 <header class="app-header">
   <h1>🔬 CBCS ICD-10 Neoplasm Coding Interactive Mastery Lab</h1>
@@ -1476,32 +1411,27 @@ const flashcards = [
   });
 })();
 </script>
+
+<script>
+window.addEventListener("load", function () {
+  const body = document.body;
+
+  Array.from(body.childNodes).forEach(node => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const txt = (node.textContent || "").trim();
+      if (
+        txt.includes("design-guidelines.md") ||
+        txt.includes("Let me check the frontend design guidelines first") ||
+        txt.includes("Now let me build this comprehensive interactive educational tool") ||
+        txt.includes("Let me copy it to the output directory and deliver it") ||
+        txt.includes("Copy to output") ||
+        txt.includes("present_files")
+      ) {
+        node.remove();
+      }
+    }
+  });
+});
+</script>
 </body>
 </html>
-</tool_parameter>
-</tool_invoke>
-</tool_calls>
-<tool_calls>
-<tool_invoke name="view">
-<tool_parameter name="path">/home/claude/neoplasm.html</tool_parameter>
-<tool_parameter name="description">Quick check the file was created</tool_parameter>
-</tool_invoke>
-</tool_calls>
-Let me copy it to the output directory and deliver it.
-<tool_calls>
-<tool_invoke name="bash_tool">
-<tool_parameter name="command">cp /home/claude/neoplasm.html /mnt/user-output/neoplasm.html 2>/dev/null; cp /home/claude/neoplasm.html /mnt/user-data/output/neoplasm.html 2>/dev/null; ls /mnt/user-data/</tool_parameter>
-<tool_parameter name="description">Copy to output</tool_parameter>
-</tool_invoke>
-</tool_calls>
-<tool_calls>
-<tool_invoke name="bash_tool">
-<tool_parameter name="command">mkdir -p /mnt/user-data/outputs && cp /home/claude/neoplasm.html /mnt/user-data/outputs/neoplasm.html</tool_parameter>
-<tool_parameter name="description">Copy to correct output directory</tool_parameter>
-</tool_invoke>
-</tool_calls>
-<tool_calls>
-<tool_invoke name="present_files">
-<tool_parameter name="filePaths">["/mnt/user-data/outputs/neoplasm.html"]</tool_parameter>
-</tool_invoke>
-</tool_calls>
