@@ -1,0 +1,1481 @@
+<tool_calls>
+<tool_invoke name="read_file">
+<tool_parameter name="relative_path">design-guidelines.md</tool_parameter>
+</tool_invoke>
+</tool_calls>
+Let me check the frontend design guidelines first.
+<tool_calls>
+<tool_invoke name="v1/tools/read">
+<tool_parameter name="relative_path">v1/tools/read</tool_parameter>
+</tool_invoke>
+</tool_calls>
+<tool_calls>
+<tool_invoke name="read_file">
+<tool_parameter name="relative_path">frontend-design/STYLE_GUIDE.md</tool_parameter>
+</tool_invoke>
+</tool_calls>
+<tool_calls>
+<tool_invoke name="view">
+<tool_parameter name="path">/mnt/skills/public/frontend-design</tool_parameter>
+<tool_parameter name="description">Check frontend design skill</tool_parameter>
+</tool_invoke>
+</tool_calls>
+<tool_calls>
+<tool_invoke name="view">
+<tool_parameter name="path">/mnt/skills/public/frontend-design/STYLE_GUIDE.md</tool_parameter>
+<tool_parameter name="description">Read style guide</tool_parameter>
+</tool_invoke>
+</tool_calls>
+<tool_calls>
+<tool_invoke name="view">
+<tool_parameter name="path">/mnt/skills/public/frontend-design/SKILL.md</tool_parameter>
+<tool_parameter name="description">Read frontend design skill</tool_parameter>
+</tool_invoke>
+</tool_calls>
+Now let me build this comprehensive interactive educational tool. Given the massive scope, I'll create it as a single HTML file.
+<tool_calls>
+<tool_invoke name="create_file">
+<tool_parameter name="description">Create the CBCS CPC Neoplasm Coding interactive learning tool</tool_parameter>
+<tool_parameter name="path">/home/claude/neoplasm.html</tool_parameter>
+<tool_parameter name="file_content"><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBCS ICD-10 Neoplasm Coding Interactive Mastery Lab</title>
+<style>
+:root {
+  --primary: #6C3FC5;
+  --primary-light: #8B5CF6;
+  --primary-dark: #4C1D95;
+  --secondary: #0EA5E9;
+  --secondary-light: #38BDF8;
+  --accent: #F59E0B;
+  --accent2: #EC4899;
+  --accent3: #10B981;
+  --success: #22C55E;
+  --error: #EF4444;
+  --warning: #F59E0B;
+  --bg: #FAFBFF;
+  --surface: #FFFFFF;
+  --surface2: #F1F5F9;
+  --text: #1E293B;
+  --text2: #475569;
+  --text3: #94A3B8;
+  --border: #E2E8F0;
+  --radius: 12px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+{ margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+background: var(--bg);
+color: var(--text);
+line-height: 1.6;
+min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--secondary));
+color: white;
+padding: 1.5rem 1rem;
+text-align: center;
+position: sticky;
+top: 0;
+z-index: 100;
+box-shadow: 0 4px 20px rgba(108,63,197,0.3);
+}
+.app-header h1 {
+font-size: clamp(1rem, 3vw, 1.5rem);
+font-weight: 800;
+letter-spacing: -0.02em;
+}
+.header-stats {
+display: flex;
+justify-content: center;
+gap: 1.5rem;
+margin-top: 0.5rem;
+font-size: 0.85rem;
+flex-wrap: wrap;
+}
+.header-stats span { display: flex; align-items: center; gap: 0.3rem; }
+.progress-bar-container {
+width: 100%;
+max-width: 500px;
+margin: 0.5rem auto 0;
+background: rgba(255,255,255,0.2);
+border-radius: 20px;
+height: 8px;
+overflow: hidden;
+}
+.progress-bar-fill {
+height: 100%;
+background: linear-gradient(90deg, var(--accent), var(--success));
+border-radius: 20px;
+transition: width 0.5s ease;
+width: 0%;
+}
+/* Tabs */
+.tab-container {
+display: flex;
+overflow-x: auto;
+background: var(--surface);
+border-bottom: 2px solid var(--border);
+padding: 0 0.5rem;
+scrollbar-width: thin;
+}
+.tab-container::-webkit-scrollbar { height: 4px; }
+.tab-container::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 4px; }
+.tab-btn {
+flex-shrink: 0;
+padding: 0.75rem 1rem;
+border: none;
+background: none;
+font-size: 0.8rem;
+font-weight: 600;
+color: var(--text2);
+cursor: pointer;
+border-bottom: 3px solid transparent;
+transition: all 0.2s;
+white-space: nowrap;
+}
+.tab-btn:hover { color: var(--primary); background: rgba(108,63,197,0.05); }
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+.tab-btn.completed { color: var(--success); }
+.tab-btn.completed::after { content: ' ✓'; }
+/* Main Content */
+.main-content { max-width: 900px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+.section { display: none; animation: fadeIn 0.3s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+/* Cards */
+.card {
+background: var(--surface);
+border-radius: var(--radius);
+padding: 1.5rem;
+margin-bottom: 1.25rem;
+box-shadow: var(--shadow);
+border: 1px solid var(--border);
+}
+.card-accent {
+border-left: 4px solid var(--primary);
+}
+.card-success { border-left: 4px solid var(--success); }
+.card-warning { border-left: 4px solid var(--warning); }
+.card-info { border-left: 4px solid var(--secondary); }
+/* Typography */
+h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--primary-dark); }
+h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text); }
+h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text2); }
+p { margin-bottom: 0.75rem; }
+.highlight { background: linear-gradient(to right, #FEF3C7, #FDE68A); padding: 0.15em 0.4em; border-radius: 4px; font-weight: 600; }
+.tag {
+display: inline-block;
+padding: 0.2em 0.6em;
+border-radius: 20px;
+font-size: 0.75rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+}
+.tag-purple { background: #EDE9FE; color: var(--primary); }
+.tag-blue { background: #E0F2FE; color: #0369A1; }
+.tag-green { background: #DCFCE7; color: #15803D; }
+.tag-red { background: #FEE2E2; color: #B91C1C; }
+.tag-amber { background: #FEF3C7; color: #92400E; }
+/* Quiz System */
+.quiz-block { margin: 1.25rem 0; }
+.quiz-question {
+font-weight: 700;
+margin-bottom: 0.75rem;
+padding: 0.75rem;
+background: linear-gradient(135deg, #EDE9FE, #E0F2FE);
+border-radius: var(--radius);
+font-size: 0.95rem;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+.quiz-opt {
+padding: 0.75rem 1rem;
+border: 2px solid var(--border);
+border-radius: var(--radius);
+cursor: pointer;
+transition: all 0.2s;
+font-size: 0.9rem;
+background: var(--surface);
+text-align: left;
+font-weight: 500;
+}
+.quiz-opt:hover:not(.disabled) { border-color: var(--primary-light); background: #F5F3FF; transform: translateX(4px); }
+.quiz-opt.correct { border-color: var(--success); background: #DCFCE7; color: #15803D; }
+.quiz-opt.wrong { border-color: var(--error); background: #FEE2E2; color: #B91C1C; }
+.quiz-opt.disabled { cursor: default; opacity: 0.7; }
+.quiz-opt.disabled:hover { transform: none; }
+.quiz-feedback {
+margin-top: 0.75rem;
+padding: 0.75rem;
+border-radius: var(--radius);
+font-size: 0.85rem;
+line-height: 1.5;
+display: none;
+}
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct { background: #F0FDF4; border: 1px solid #86EFAC; color: #15803D; }
+.quiz-feedback.wrong { background: #FFF1F2; border: 1px solid #FCA5A5; color: #B91C1C; }
+/* Buttons */
+.btn {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+padding: 0.65rem 1.25rem;
+border: none;
+border-radius: var(--radius);
+font-size: 0.9rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.2s;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--border); }
+.btn-success { background: var(--success); color: white; }
+.btn-accent { background: var(--accent); color: white; }
+.btn-accent2 { background: var(--accent2); color: white; }
+/* Reveal */
+.reveal-content { display: none; margin-top: 0.75rem; }
+.reveal-content.show { display: block; animation: fadeIn 0.3s; }
+/* Accordion */
+.accordion-item { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 0.5rem; overflow: hidden; }
+.accordion-header {
+padding: 0.75rem 1rem;
+background: var(--surface2);
+cursor: pointer;
+font-weight: 600;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.accordion-header:hover { background: #E8E0FF; }
+.accordion-body { padding: 0 1rem; max-height: 0; overflow: hidden; transition: all 0.3s; }
+.accordion-body.open { padding: 1rem; max-height: 2000px; }
+/* Word Cards */
+.word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; }
+.word-card {
+background: var(--surface);
+border: 2px solid var(--border);
+border-radius: var(--radius);
+padding: 1rem;
+cursor: pointer;
+text-align: center;
+transition: all 0.3s;
+position: relative;
+}
+.word-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.word-card.flipped { border-color: var(--primary); background: #F5F3FF; }
+.word-card .front { font-weight: 700; font-size: 1rem; color: var(--primary-dark); }
+.word-card .back { display: none; font-size: 0.8rem; text-align: left; }
+.word-card.flipped .back { display: block; }
+/* Neoplasm Table */
+.neo-table-wrapper { overflow-x: auto; margin: 1rem 0; }
+.neo-table {
+width: 100%;
+border-collapse: collapse;
+font-size: 0.8rem;
+}
+.neo-table th {
+background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+color: white;
+padding: 0.5rem 0.4rem;
+text-align: center;
+font-size: 0.7rem;
+position: sticky;
+top: 0;
+}
+.neo-table td {
+padding: 0.5rem;
+border: 1px solid var(--border);
+text-align: center;
+cursor: pointer;
+transition: all 0.2s;
+}
+.neo-table td:first-child { text-align: left; font-weight: 600; }
+.neo-table tr:hover td { background: #F5F3FF; }
+.neo-table td.selected { background: var(--accent) !important; color: white; font-weight: 700; border-color: var(--accent); }
+.neo-table td.correct-cell { background: var(--success) !important; color: white; }
+.neo-table td.wrong-cell { background: var(--error) !important; color: white; }
+/* Timer */
+.timer-display {
+font-size: 2rem;
+font-weight: 800;
+text-align: center;
+font-variant-numeric: tabular-nums;
+color: var(--primary-dark);
+}
+.timer-display.warning { color: var(--warning); }
+.timer-display.danger { color: var(--error); animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: 0.5; } }
+/* Badge */
+.badge-container { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; }
+.badge {
+display: flex;
+align-items: center;
+gap: 0.4rem;
+padding: 0.5rem 0.75rem;
+border-radius: 20px;
+font-size: 0.8rem;
+font-weight: 600;
+border: 2px solid var(--border);
+opacity: 0.4;
+transition: all 0.3s;
+}
+.badge.earned {
+opacity: 1;
+border-color: var(--accent);
+background: #FFFBEB;
+animation: badgePop 0.5s ease;
+}
+@keyframes badgePop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+/* Flashcard */
+.flashcard {
+background: var(--surface);
+border: 2px solid var(--primary-light);
+border-radius: var(--radius);
+padding: 1.5rem;
+text-align: center;
+min-height: 120px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+cursor: pointer;
+transition: all 0.3s;
+margin-bottom: 1rem;
+}
+.flashcard:hover { box-shadow: var(--shadow-lg); }
+/* Toast */
+.toast {
+position: fixed;
+bottom: 20px;
+right: 20px;
+padding: 0.75rem 1.25rem;
+border-radius: var(--radius);
+color: white;
+font-weight: 600;
+font-size: 0.9rem;
+z-index: 1000;
+animation: slideUp 0.3s ease, fadeOut 0.3s ease 2s forwards;
+box-shadow: var(--shadow-lg);
+}
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } }
+@keyframes fadeOut { to { opacity: 0; transform: translateY(-10px); } }
+/* Footer */
+.app-footer {
+text-align: center;
+padding: 2rem 1rem;
+background: var(--surface);
+border-top: 1px solid var(--border);
+color: var(--text2);
+font-size: 0.85rem;
+}
+.app-footer strong { color: var(--primary); }
+/* Tooltip */
+.tooltip-term {
+border-bottom: 2px dotted var(--primary-light);
+cursor: help;
+position: relative;
+font-weight: 600;
+color: var(--primary-dark);
+}
+.tooltip-term:hover::after {
+content: attr(data-tip);
+position: absolute;
+bottom: 100%;
+left: 50%;
+transform: translateX(-50%);
+background: var(--text);
+color: white;
+padding: 0.5rem 0.75rem;
+border-radius: 8px;
+font-size: 0.75rem;
+font-weight: 400;
+white-space: nowrap;
+max-width: 260px;
+white-space: normal;
+z-index: 50;
+}
+/* Responsive */
+@media (max-width: 600px) {
+.tab-btn { font-size: 0.7rem; padding: 0.6rem 0.75rem; }
+.card { padding: 1rem; }
+h2 { font-size: 1.25rem; }
+.word-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+.neo-table { font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+<header class="app-header">
+  <h1>🔬 CBCS ICD-10 Neoplasm Coding Interactive Mastery Lab</h1>
+  <div class="header-stats">
+    <span>⭐ Score: <strong id="totalScore">0</strong></span>
+    <span>🔥 Streak: <strong id="streak">0</strong></span>
+    <span>🏅 Badges: <strong id="badgeCount">0</strong>/8</span>
+  </div>
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+</header>
+<nav class="tab-container" id="tabContainer">
+  <button class="tab-btn active" onclick="showSection(0)">1. Welcome</button>
+  <button class="tab-btn" onclick="showSection(1)">2. What is a Neoplasm?</button>
+  <button class="tab-btn" onclick="showSection(2)">3. Word Breakdown</button>
+  <button class="tab-btn" onclick="showSection(3)">4. Benign vs Malignant</button>
+  <button class="tab-btn" onclick="showSection(4)">5. Primary vs Secondary</button>
+  <button class="tab-btn" onclick="showSection(5)">6. Neoplasm Table</button>
+  <button class="tab-btn" onclick="showSection(6)">7. SOAP Notes</button>
+  <button class="tab-btn" onclick="showSection(7)">8. Quiz Arena</button>
+  <button class="tab-btn" onclick="showSection(8)">9. Timed Challenge</button>
+  <button class="tab-btn" onclick="showSection(9)">10. Rapid Review</button>
+</nav>
+<main class="main-content">
+<!-- SECTION 0: Welcome -->
+<div class="section active" id="section0">
+  <div class="card card-accent">
+    <h2>Welcome to the Neoplasm Coding Mastery Lab!</h2>
+    <p>This interactive lab will teach you how to <strong>think through</strong> coding neoplasms for the CBCS exam. You won't just memorize — you'll learn to reason through every scenario.</p>
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin:1rem 0;">
+      <span class="tag tag-purple">Self-Paced</span>
+      <span class="tag tag-blue">Interactive</span>
+      <span class="tag tag-green">Scored</span>
+      <span class="tag tag-red">Exam-Focused</span>
+    </div>
+  </div>
+  <div class="card">
+    <h3>How This Lab Works</h3>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">📋 Work through each tab in order <span>+</span></div>
+      <div class="accordion-body">Each section builds on the last. Start at Tab 1 and work your way through. You can always go back to review.</div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">⭐ Earn points for correct answers <span>+</span></div>
+      <div class="accordion-body">Every correct answer earns 10 points. Build up streaks for bonus points. Wrong answers help you learn — read every explanation!</div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">🏅 Unlock badges <span>+</span></div>
+      <div class="accordion-body">Complete sections and hit milestones to earn badges. There are 8 badges total. Can you earn them all?</div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">⏱️ Take the timed challenge last <span>+</span></div>
+      <div class="accordion-body">After learning all sections, test yourself with the timed challenge in Tab 9. It pulls questions from everything you've learned.</div>
+    </div>
+  </div>
+  <div class="badge-container" id="badgeDisplay">
+    <div class="badge" id="badge-welcome">🌟 Getting Started</div>
+    <div class="badge" id="badge-terminology">📚 Word Master</div>
+    <div class="badge" id="badge-behavior">🔍 Behavior Expert</div>
+    <div class="badge" id="badge-sites">📍 Site Specialist</div>
+    <div class="badge" id="badge-table">📊 Table Navigator</div>
+    <div class="badge" id="badge-soap">📝 SOAP Pro</div>
+    <div class="badge" id="badge-quiz">🏆 Quiz Champion</div>
+    <div class="badge" id="badge-timed">⚡ Speed Coder</div>
+  </div>
+  <div style="text-align:center; margin-top:1.5rem;">
+    <button class="btn btn-primary" onclick="showSection(1); earnBadge('welcome');" style="font-size:1.1rem; padding:0.85rem 2rem;">
+      🚀 Start Learning
+    </button>
+  </div>
+</div>
+<!-- SECTION 1: What is a Neoplasm -->
+<div class="section" id="section1">
+  <h2>What is a Neoplasm?</h2>
+  <div class="quiz-block" id="q_neo1"></div>
+  <div class="card card-info" id="neo-concept1" style="display:none">
+    <h3>Breaking Down the Word</h3>
+    <p><span class="highlight">Neo</span> = New &nbsp;&nbsp;|&nbsp;&nbsp; <span class="highlight">Plasm</span> = Growth / Formation</p>
+    <p>A neoplasm is an <strong>abnormal new growth of cells</strong>. The cells grow and divide more than they should, or don't die when they normally would.</p>
+    <p>⚠️ <strong>Key exam concept:</strong> Not every neoplasm is cancer. Not every tumor is malignant. "Neoplasm" is the broadest term — it includes benign, malignant, and everything in between.</p>
+  </div>
+  <div id="neo-quiz-chain" style="display:none">
+    <div class="quiz-block" id="q_neo2"></div>
+    <div class="quiz-block" id="q_neo3"></div>
+    <div class="quiz-block" id="q_neo4"></div>
+    <div class="quiz-block" id="q_neo5"></div>
+  </div>
+  <div id="neo-complete" style="display:none" class="card card-success">
+    <h3>✅ Section Complete!</h3>
+    <p>You understand that a neoplasm is a new growth that can be benign or malignant. This is fundamental to everything that follows.</p>
+    <button class="btn btn-primary" onclick="showSection(2)">Continue to Word Breakdown →</button>
+  </div>
+</div>
+<!-- SECTION 2: Word Breakdown -->
+<div class="section" id="section2">
+  <h2>Breaking Down the Words</h2>
+  <div class="card card-info">
+    <h3>Why This Matters</h3>
+    <p>On the CBCS exam, the medical term often contains clues about the type of neoplasm. Knowing word parts helps you quickly narrow down whether a condition is benign or malignant, and what tissue is involved.</p>
+  </div>
+  <div class="card">
+    <h3>Key Suffixes to Know</h3>
+    <p><span class="highlight">-oma</span> = tumor (usually benign, but NOT always!)</p>
+    <p><span class="highlight">-carcinoma</span> = malignant tumor of epithelial tissue</p>
+    <p><span class="highlight">-sarcoma</span> = malignant tumor of connective tissue</p>
+    <p>⚠️ <strong>Exam trap:</strong> Melanoma, lymphoma, and hepatoma end in "-oma" but are <strong>malignant</strong>. Don't assume "-oma" always means benign!</p>
+  </div>
+  <div class="card">
+    <h3>Click each term to learn about it</h3>
+    <div class="word-grid" id="wordGrid"></div>
+  </div>
+  <div id="word-quizzes" style="display:none">
+    <div class="quiz-block" id="q_word1"></div>
+    <div class="quiz-block" id="q_word2"></div>
+    <div class="quiz-block" id="q_word3"></div>
+    <div class="quiz-block" id="q_word4"></div>
+    <div class="quiz-block" id="q_word5"></div>
+    <div class="quiz-block" id="q_word6"></div>
+  </div>
+  <div id="word-complete" style="display:none" class="card card-success">
+    <h3>✅ Section Complete!</h3>
+    <p>You can now break down neoplasm terminology and recognize clues in medical terms. Remember: always verify with the documentation, not just the word ending!</p>
+    <button class="btn btn-primary" onclick="showSection(3); earnBadge('terminology');">Continue to Benign vs Malignant →</button>
+  </div>
+</div>
+<!-- SECTION 3: Benign vs Malignant -->
+<div class="section" id="section3">
+  <h2>Benign vs Malignant vs In Situ</h2>
+  <div class="quiz-block" id="q_beh0"></div>
+  <div id="beh-concepts" style="display:none">
+    <div class="card" style="border-left:4px solid var(--success);">
+      <h3 style="color:var(--success);">✅ Benign</h3>
+      <p><strong>Does NOT invade</strong> surrounding tissue. Does NOT spread. Stays localized. Usually not life-threatening. Example: uterine leiomyoma (fibroid).</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--error);">
+      <h3 style="color:var(--error);">🔴 Malignant</h3>
+      <p><strong>Invades</strong> surrounding tissue. <strong>Can spread</strong> (metastasize) to other parts of the body. This is what we call cancer. Example: lung carcinoma.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--accent);">
+      <h3 style="color:#B45309;">🟡 In Situ</h3>
+      <p>Abnormal cells are present but have <strong>NOT invaded</strong> surrounding tissue. They are "in place." Think of it as pre-invasive or stage 0. Example: carcinoma in situ of cervix.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--text3);">
+      <h3>❓ Uncertain vs Unspecified Behavior</h3>
+      <p><strong>Uncertain:</strong> The pathologist or provider states the behavior cannot be determined — "uncertain whether benign or malignant." The nature is genuinely unclear even after evaluation.</p>
+      <p><strong>Unspecified:</strong> The documentation simply does <strong>not state</strong> the behavior. No information about benign or malignant. The provider didn't specify.</p>
+      <p>⚠️ <strong>Exam trap:</strong> These are NOT the same. Uncertain = clinically unclear. Unspecified = not documented.</p>
+    </div>
+<div class="quiz-block" id="q_beh1"></div>
+<div class="quiz-block" id="q_beh2"></div>
+<div class="quiz-block" id="q_beh3"></div>
+<div class="quiz-block" id="q_beh4"></div>
+<div class="quiz-block" id="q_beh5"></div>
+<div class="quiz-block" id="q_beh6"></div>
+<div class="quiz-block" id="q_beh7"></div>
+  </div>
+  <div id="beh-complete" style="display:none" class="card card-success">
+    <h3>✅ Section Complete!</h3>
+    <p>You can now distinguish between all five behavior types and recognize documentation clues for each.</p>
+    <button class="btn btn-primary" onclick="showSection(4); earnBadge('behavior');">Continue to Primary vs Secondary →</button>
+  </div>
+</div>
+<!-- SECTION 4: Primary vs Secondary -->
+<div class="section" id="section4">
+  <h2>Primary vs Secondary Site</h2>
+  <div class="quiz-block" id="q_site0"></div>
+  <div id="site-concepts" style="display:none">
+    <div class="card card-accent">
+      <h3>Understanding the Difference</h3>
+      <p><strong>Primary site:</strong> Where the cancer <em>originated</em>. This is the organ or tissue where the neoplasm first started.</p>
+      <p><strong>Secondary site:</strong> Where the cancer <em>spread to</em>. Also called a <span class="tooltip-term" data-tip="The spread of cancer from the primary site to distant organs">metastatic</span> site.</p>
+      <p><strong>Example:</strong> A patient has colon cancer that has spread to the liver. The <strong>colon</strong> is the primary site. The <strong>liver</strong> is the secondary (metastatic) site.</p>
+    </div>
+<div class="card card-warning">
+  <h3>⚠️ Critical Exam Traps</h3>
+  <p><strong>1.</strong> If the provider documents "metastatic cancer to the liver," the liver is the <strong>secondary</strong> site — NOT the primary.</p>
+  <p><strong>2.</strong> If the primary site is unknown, you still code the secondary site as secondary. Do NOT assume a primary site.</p>
+  <p><strong>3.</strong> "Metastatic from" = primary site. "Metastatic to" = secondary site.</p>
+  <p><strong>4.</strong> When cancer has spread, you may need to code BOTH the primary and the secondary site.</p>
+</div>
+
+<div class="quiz-block" id="q_site1"></div>
+<div class="quiz-block" id="q_site2"></div>
+<div class="quiz-block" id="q_site3"></div>
+<div class="quiz-block" id="q_site4"></div>
+<div class="quiz-block" id="q_site5"></div>
+<div class="quiz-block" id="q_site6"></div>
+  </div>
+  <div id="site-complete" style="display:none" class="card card-success">
+    <h3>✅ Section Complete!</h3>
+    <p>You now understand how to identify primary and secondary sites and recognize the critical difference between "metastatic from" and "metastatic to."</p>
+    <button class="btn btn-primary" onclick="showSection(5); earnBadge('sites');">Continue to Neoplasm Table →</button>
+  </div>
+</div>
+<!-- SECTION 5: Neoplasm Table -->
+<div class="section" id="section5">
+  <h2>How to Use the Neoplasm Table</h2>
+  <div class="card card-accent">
+    <h3>The Neoplasm Table is Your Best Friend</h3>
+    <p>The ICD-10-CM Neoplasm Table in the Alphabetic Index is the key lookup tool. It lists anatomical sites (body locations) down the left side and behavior types across the top as columns.</p>
+    <p>Here are the steps to use it:</p>
+    <p><strong>Step 1:</strong> Identify the anatomical <strong>site</strong> from the documentation.</p>
+    <p><strong>Step 2:</strong> Determine the <strong>behavior</strong> (malignant primary, malignant secondary, in situ, benign, uncertain, unspecified).</p>
+    <p><strong>Step 3:</strong> Find the site in the table — it's listed alphabetically. Look for the main entry, then find any indented sub-entries.</p>
+    <p><strong>Step 4:</strong> Move across to the correct <strong>column</strong> for the behavior.</p>
+    <p><strong>Step 5:</strong> Write down the code, then <strong>verify it in the Tabular List</strong> for accuracy and any additional instructions.</p>
+  </div>
+  <div class="card">
+    <h3>🔍 Practice: Interactive Neoplasm Table</h3>
+    <p>Below is a simplified neoplasm table. For each scenario, click the correct cell.</p>
+    <div class="neo-table-wrapper">
+      <table class="neo-table" id="neoTable">
+        <thead>
+          <tr>
+            <th style="text-align:left">Site</th>
+            <th>Malig. Primary</th>
+            <th>Malig. Secondary</th>
+            <th>In Situ</th>
+            <th>Benign</th>
+            <th>Uncertain</th>
+            <th>Unspecified</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div id="tableScenario" class="quiz-question" style="margin-top:1rem;"></div>
+    <div id="tableFeedback" class="quiz-feedback" style="margin-top:0.5rem;"></div>
+    <button class="btn btn-primary" id="nextTableBtn" style="display:none; margin-top:0.75rem;" onclick="nextTableScenario()">Next Scenario →</button>
+  </div>
+  <div id="table-quizzes" style="display:none">
+    <div class="quiz-block" id="q_tab1"></div>
+    <div class="quiz-block" id="q_tab2"></div>
+    <div class="quiz-block" id="q_tab3"></div>
+    <div class="quiz-block" id="q_tab4"></div>
+  </div>
+  <div id="table-complete" style="display:none" class="card card-success">
+    <h3>✅ Section Complete!</h3>
+    <p>You can navigate the neoplasm table to find the right code. Remember: always verify in the Tabular List!</p>
+    <button class="btn btn-primary" onclick="showSection(6); earnBadge('table');">Continue to SOAP Notes →</button>
+  </div>
+</div>
+<!-- SECTION 6: SOAP Notes -->
+<div class="section" id="section6">
+  <h2>SOAP Note Coding Lab</h2>
+  <div class="card card-info">
+    <h3>How to Read Documentation for Coding</h3>
+    <p>On the exam, you'll read clinical scenarios and determine the correct code. Here's your process:</p>
+    <p><strong>1.</strong> Read the entire note. <strong>2.</strong> Identify the diagnosis or reason for the encounter. <strong>3.</strong> Pick out the <strong>site</strong>. <strong>4.</strong> Pick out the <strong>behavior</strong>. <strong>5.</strong> Determine if it's primary or secondary. <strong>6.</strong> Use the neoplasm table. <strong>7.</strong> Verify in the Tabular List.</p>
+  </div>
+  <div id="soapCases"></div>
+  <div id="soap-complete" style="display:none" class="card card-success">
+    <h3>✅ Section Complete!</h3>
+    <p>You've practiced identifying key information from clinical documentation. This skill is essential for the CBCS exam.</p>
+    <button class="btn btn-primary" onclick="showSection(7); earnBadge('soap');">Continue to Quiz Arena →</button>
+  </div>
+</div>
+<!-- SECTION 7: Quiz Arena -->
+<div class="section" id="section7">
+  <h2>Higher-Order Coding Arena</h2>
+  <div class="card">
+    <p>Answer these exam-style questions. Each question tests critical thinking, not just memorization. Read the rationale for every answer!</p>
+    <p><strong>Progress: <span id="arenaProgress">0</span>/50</strong></p>
+  </div>
+  <div id="arenaContainer"></div>
+  <div id="arena-complete" style="display:none" class="card card-success">
+    <h3>🏆 Quiz Arena Complete!</h3>
+    <p>You've worked through all 50 questions. Review any you got wrong by scrolling up.</p>
+    <button class="btn btn-primary" onclick="showSection(8); earnBadge('quiz');">Take the Timed Challenge →</button>
+  </div>
+</div>
+<!-- SECTION 8: Timed Challenge -->
+<div class="section" id="section8">
+  <h2>⏱️ Timed Challenge</h2>
+  <div id="timedStart" class="card" style="text-align:center;">
+    <h3>Ready for the Challenge?</h3>
+    <p>20 randomized questions. 10 minutes. Let's see what you've learned!</p>
+    <p style="margin:1rem 0;"><strong>Best Score: <span id="bestTimedScore">0</span>/20</strong></p>
+    <button class="btn btn-accent2" onclick="startTimedChallenge()" style="font-size:1.1rem; padding:0.85rem 2rem;">⚡ Start Challenge</button>
+  </div>
+  <div id="timedActive" style="display:none;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+      <div class="timer-display" id="timerDisplay">10:00</div>
+      <div><strong>Score: <span id="timedScore">0</span>/20</strong> | 🔥 <span id="timedStreak">0</span></div>
+    </div>
+    <div id="timedQuestion" class="card"></div>
+  </div>
+  <div id="timedResults" style="display:none;" class="card">
+    <h3>Challenge Complete!</h3>
+    <div id="timedResultsContent"></div>
+    <button class="btn btn-primary" onclick="startTimedChallenge()" style="margin-top:1rem;">🔄 Try Again</button>
+    <button class="btn btn-secondary" onclick="showSection(9)" style="margin-top:1rem;">Review Rapid Review →</button>
+  </div>
+</div>
+<!-- SECTION 9: Rapid Review -->
+<div class="section" id="section9">
+  <h2>Rapid Review Flashcards</h2>
+  <div class="card card-info">
+    <p>Click each card to flip and review. These are the highest-yield concepts for your exam.</p>
+  </div>
+  <div id="flashcardContainer"></div>
+  <div class="card" style="text-align:center; margin-top:1.5rem;">
+    <h3>🎓 You've Completed the Lab!</h3>
+    <p>Go back and review any sections you want to strengthen. Good luck on your CBCS exam!</p>
+    <button class="btn btn-primary" onclick="showSection(0)">Back to Home</button>
+  </div>
+</div>
+</main>
+<footer class="app-footer">
+  <p>Developed and Instructed by <strong>Hilary Homaii</strong></p>
+  <p style="margin-top:0.25rem; font-size:0.75rem; color:var(--text3);">CBCS ICD-10 Neoplasm Coding Interactive Mastery Lab</p>
+</footer>
+<script>
+// ==================== STATE ====================
+let state = {
+  score: 0,
+  streak: 0,
+  bestStreak: 0,
+  badges: {},
+  sectionsComplete: {},
+  answered: {},
+  timedBest: 0
+};
+
+// ==================== CORE FUNCTIONS ====================
+function showSection(idx) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('section' + idx).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  window.scrollTo({top: 0});
+}
+
+function addScore(pts) {
+  state.score += pts;
+  state.streak++;
+  if (state.streak > state.bestStreak) state.bestStreak = state.streak;
+  document.getElementById('totalScore').textContent = state.score;
+  document.getElementById('streak').textContent = state.streak;
+  if (state.streak > 0 && state.streak % 5 === 0) showToast('🔥 ' + state.streak + ' streak!', 'var(--accent)');
+  updateProgress();
+}
+
+function resetStreak() {
+  state.streak = 0;
+  document.getElementById('streak').textContent = 0;
+}
+
+function earnBadge(id) {
+  if (state.badges[id]) return;
+  state.badges[id] = true;
+  const el = document.getElementById('badge-' + id);
+  if (el) el.classList.add('earned');
+  const count = Object.keys(state.badges).length;
+  document.getElementById('badgeCount').textContent = count;
+  showToast('🏅 Badge Earned!', 'var(--primary)');
+  markTabComplete(getTabForBadge(id));
+}
+
+function getTabForBadge(id) {
+  return {welcome:0,terminology:2,behavior:3,sites:4,table:5,soap:6,quiz:7,timed:8}[id] ?? -1;
+}
+
+function markTabComplete(idx) {
+  if (idx >= 0) document.querySelectorAll('.tab-btn')[idx]?.classList.add('completed');
+}
+
+function updateProgress() {
+  const total = Object.keys(state.answered).length;
+  const pct = Math.min(100, (total / 120) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+function showToast(msg, color) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.style.background = color || 'var(--primary)';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+function toggleAccordion(el) {
+  const body = el.nextElementSibling;
+  const isOpen = body.classList.toggle('open');
+  el.querySelector('span').textContent = isOpen ? '−' : '+';
+}
+
+// ==================== QUIZ BUILDER ====================
+function buildQuiz(containerId, q, onCorrect) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  let html = '<div class="quiz-question">' + q.question + '</div><div class="quiz-options">';
+  q.options.forEach((o, i) => {
+    html += '<button class="quiz-opt" data-idx="' + i + '" onclick="handleQuiz(this,\'' + containerId + '\',' + q.correct + ',' + i + ')">' + o + '</button>';
+  });
+  html += '</div><div class="quiz-feedback" id="' + containerId + '_fb"></div>';
+  container.innerHTML = html;
+  container._q = q;
+  container._onCorrect = onCorrect;
+}
+
+function handleQuiz(btn, cid, correctIdx, chosenIdx) {
+  if (state.answered[cid]) return;
+  state.answered[cid] = true;
+  const container = document.getElementById(cid);
+  const btns = container.querySelectorAll('.quiz-opt');
+  const fb = document.getElementById(cid + '_fb');
+  btns.forEach((b, i) => {
+    b.classList.add('disabled');
+    if (i === correctIdx) b.classList.add('correct');
+    if (i === chosenIdx && i !== correctIdx) b.classList.add('wrong');
+  });
+  const q = container._q;
+  if (chosenIdx === correctIdx) {
+    fb.className = 'quiz-feedback show correct';
+    fb.innerHTML = '✅ Correct! +10 points<br>' + (q.rationale || '');
+    addScore(10);
+  } else {
+    fb.className = 'quiz-feedback show wrong';
+    fb.innerHTML = '❌ Not quite. ' + (q.rationale || '');
+    resetStreak();
+  }
+  if (container._onCorrect) container._onCorrect();
+}
+
+// ==================== SECTION 1: NEOPLASM ====================
+(function initSection1() {
+  buildQuiz('q_neo1', {
+    question: "Before we begin — what do you think 'neoplasm' means?",
+    options: ["A type of blood test", "A new abnormal growth", "A bacterial infection", "A broken bone"],
+    correct: 1,
+    rationale: "'Neo' means new and 'plasm' means growth or formation. A neoplasm is an abnormal new growth of cells."
+  }, () => {
+    document.getElementById('neo-concept1').style.display = 'block';
+    document.getElementById('neo-quiz-chain').style.display = 'block';
+    initNeoChain();
+  });
+})();
+
+function initNeoChain() {
+  buildQuiz('q_neo2', {
+    question: "What does the prefix 'neo-' mean?",
+    options: ["Old", "New", "Large", "Small"],
+    correct: 1,
+    rationale: "'Neo' comes from Greek and means 'new.' In neoplasm, it refers to a NEW growth."
+  });
+  buildQuiz('q_neo3', {
+    question: "What does '-plasm' mean?",
+    options: ["Blood", "Bone", "Growth / Formation", "Pain"],
+    correct: 2,
+    rationale: "'-Plasm' means growth or formation. Combined with 'neo,' it means a new growth."
+  });
+  buildQuiz('q_neo4', {
+    question: "Is every neoplasm malignant (cancerous)?",
+    options: ["Yes, all neoplasms are cancer", "No, neoplasms can be benign or malignant"],
+    correct: 1,
+    rationale: "This is a key concept. Neoplasm is a broad term that includes benign, malignant, in situ, uncertain, and unspecified behavior."
+  }, () => {});
+  buildQuiz('q_neo5', {
+    question: "A patient has a benign growth on their skin. Is this a neoplasm?",
+    options: ["No, neoplasms are only malignant", "Yes, any abnormal new growth is a neoplasm"],
+    correct: 1,
+    rationale: "Correct! A benign growth IS a neoplasm. Remember, the term neoplasm covers ALL abnormal new growths, not just cancer."
+  }, () => { document.getElementById('neo-complete').style.display = 'block'; });
+}
+
+// ==================== SECTION 2: WORD BREAKDOWN ====================
+const wordData = [
+  {term:'Carcinoma', def:'Malignant tumor of epithelial tissue (skin, organ linings)', behavior:'Malignant', example:'Lung carcinoma'},
+  {term:'Adenocarcinoma', def:'Malignant tumor of glandular epithelial tissue', behavior:'Malignant', example:'Colon adenocarcinoma'},
+  {term:'Sarcoma', def:'Malignant tumor of connective tissue (bone, muscle, cartilage)', behavior:'Malignant', example:'Osteosarcoma'},
+  {term:'Melanoma', def:'Malignant tumor of melanocytes (pigment cells)', behavior:'Malignant ⚠️ ends in -oma but malignant!', example:'Melanoma of skin'},
+  {term:'Adenoma', def:'Benign tumor of glandular tissue', behavior:'Usually Benign', example:'Pituitary adenoma'},
+  {term:'Lymphoma', def:'Malignant tumor of lymphatic tissue', behavior:'Malignant ⚠️ ends in -oma but malignant!', example:'Non-Hodgkin lymphoma'},
+  {term:'Leukemia', def:'Malignant disease of blood-forming organs', behavior:'Malignant', example:'Acute lymphoblastic leukemia'},
+  {term:'Meningioma', def:'Usually benign tumor of the meninges (brain/spinal cord covering)', behavior:'Usually Benign', example:'Meningioma of brain'}
+];
+
+(function initWordGrid() {
+  const grid = document.getElementById('wordGrid');
+  let flipped = 0;
+  wordData.forEach((w, i) => {
+    const card = document.createElement('div');
+    card.className = 'word-card';
+    card.innerHTML = '<div class="front">' + w.term + '</div><div class="back"><strong>' + w.def + '</strong><br><span class="tag ' + (w.behavior.includes('Malignant') ? 'tag-red' : 'tag-green') + '">' + w.behavior + '</span><br><small>Ex: ' + w.example + '</small></div>';
+    card.onclick = () => {
+      card.classList.toggle('flipped');
+      flipped++;
+      if (flipped >= wordData.length) {
+        document.getElementById('word-quizzes').style.display = 'block';
+        initWordQuizzes();
+      }
+    };
+    grid.appendChild(card);
+  });
+})();
+
+function initWordQuizzes() {
+  buildQuiz('q_word1', {
+    question: "A carcinoma is a malignant tumor of what type of tissue?",
+    options: ["Connective tissue", "Epithelial tissue", "Nerve tissue", "Blood tissue"],
+    correct: 1,
+    rationale: "Carcinoma = malignant tumor of epithelial tissue. This includes skin, organ linings, and glands."
+  });
+  buildQuiz('q_word2', {
+    question: "Which suffix indicates a malignant tumor of connective tissue?",
+    options: ["-oma", "-carcinoma", "-sarcoma", "-itis"],
+    correct: 2,
+    rationale: "-Sarcoma indicates malignant tumor of connective tissue (bone, muscle, fat, cartilage)."
+  });
+  buildQuiz('q_word3', {
+    question: "⚠️ EXAM TRAP: Melanoma ends in '-oma.' Is melanoma benign?",
+    options: ["Yes, -oma always means benign", "No, melanoma is malignant despite ending in -oma"],
+    correct: 1,
+    rationale: "This is a classic exam trap! Melanoma, lymphoma, and hepatoma all end in -oma but are MALIGNANT. Never assume -oma = benign."
+  });
+  buildQuiz('q_word4', {
+    question: "What does 'adeno-' mean in adenocarcinoma?",
+    options: ["Bone", "Nerve", "Gland", "Skin"],
+    correct: 2,
+    rationale: "'Adeno-' means gland. Adenocarcinoma is a malignant tumor of glandular tissue."
+  });
+  buildQuiz('q_word5', {
+    question: "A meningioma is a tumor of the meninges. Is it typically benign or malignant?",
+    options: ["Typically malignant", "Typically benign", "Always uncertain"],
+    correct: 1,
+    rationale: "Meningiomas are typically benign. However, always code based on what the documentation states, not assumptions."
+  });
+  buildQuiz('q_word6', {
+    question: "Which of these is NOT a malignant neoplasm?",
+    options: ["Lymphoma", "Adenoma", "Sarcoma", "Carcinoma"],
+    correct: 1,
+    rationale: "Adenoma is typically a benign tumor of glandular tissue. The others (lymphoma, sarcoma, carcinoma) are malignant."
+  }, () => { document.getElementById('word-complete').style.display = 'block'; });
+}
+
+// ==================== SECTION 3: BEHAVIOR ====================
+(function initBehavior() {
+  buildQuiz('q_beh0', {
+    question: "Think about this: if a patient has a tumor that 'does not invade surrounding tissue,' what behavior does this suggest?",
+    options: ["Malignant", "Benign", "In situ", "Uncertain"],
+    correct: 1,
+    rationale: "A tumor that does not invade surrounding tissue is benign. Benign tumors stay localized and do not spread."
+  }, () => {
+    document.getElementById('beh-concepts').style.display = 'block';
+    initBehaviorQuizzes();
+  });
+})();
+
+function initBehaviorQuizzes() {
+  buildQuiz('q_beh1', {
+    question: "Which behavior type INVADES surrounding tissue and can spread to distant organs?",
+    options: ["Benign", "In situ", "Malignant", "Unspecified"],
+    correct: 2,
+    rationale: "Malignant neoplasms invade surrounding tissue and can metastasize (spread) to other parts of the body."
+  });
+  buildQuiz('q_beh2', {
+    question: "Carcinoma in situ means the abnormal cells have NOT done what?",
+    options: ["Grown at all", "Been biopsied", "Invaded beyond the original tissue layer", "Been documented"],
+    correct: 2,
+    rationale: "In situ means 'in place.' The cells are abnormal/precancerous but have NOT invaded beyond the tissue where they formed."
+  });
+  buildQuiz('q_beh3', {
+    question: "The pathologist report says: 'Behavior uncertain, cannot determine if benign or malignant.' Which column do you use?",
+    options: ["Benign", "Malignant", "Uncertain behavior", "Unspecified behavior"],
+    correct: 2,
+    rationale: "When the pathologist explicitly states the behavior is uncertain or cannot be determined, use the Uncertain Behavior column."
+  });
+  buildQuiz('q_beh4', {
+    question: "The provider documents 'skin lesion' with no mention of whether it is benign or malignant. Which column?",
+    options: ["Benign (assume the best)", "Malignant (assume the worst)", "Uncertain behavior", "Unspecified behavior"],
+    correct: 3,
+    rationale: "When the documentation does not specify the behavior at all, use the Unspecified Behavior column. Never assume!"
+  });
+  buildQuiz('q_beh5', {
+    question: "⚠️ EXAM TRAP: What is the difference between uncertain and unspecified behavior?",
+    options: ["They are the same thing", "Uncertain = clinically unclear; Unspecified = not documented", "Uncertain = not documented; Unspecified = clinically unclear", "Neither exists in ICD-10"],
+    correct: 1,
+    rationale: "Key distinction! Uncertain = evaluated but behavior genuinely unclear. Unspecified = not stated in the documentation."
+  });
+  buildQuiz('q_beh6', {
+    question: "A seborrheic keratosis is a common benign skin growth. What column in the neoplasm table would you use?",
+    options: ["Malignant primary", "In situ", "Benign", "Uncertain"],
+    correct: 2,
+    rationale: "Seborrheic keratosis is benign. You would use the Benign column. (Note: seborrheic keratosis may also have a specific code — always verify in the Tabular List.)"
+  });
+  buildQuiz('q_beh7', {
+    question: "Documentation states: 'carcinoma in situ of the breast.' Is this invasive cancer?",
+    options: ["Yes, carcinoma means cancer", "No, in situ means it has NOT invaded surrounding tissue"],
+    correct: 1,
+    rationale: "Correct! Even though 'carcinoma' sounds alarming, 'in situ' means the abnormal cells are contained and have NOT invaded. Use the In Situ column."
+  }, () => { document.getElementById('beh-complete').style.display = 'block'; });
+}
+
+// ==================== SECTION 4: PRIMARY VS SECONDARY ====================
+(function initSites() {
+  buildQuiz('q_site0', {
+    question: "If a cancer started in the lung and spread to the brain, which is the primary site?",
+    options: ["Brain", "Lung", "Both equally", "Neither"],
+    correct: 1,
+    rationale: "The primary site is where the cancer STARTED — the lung. The brain is the secondary (metastatic) site."
+  }, () => {
+    document.getElementById('site-concepts').style.display = 'block';
+    initSiteQuizzes();
+  });
+})();
+
+function initSiteQuizzes() {
+  buildQuiz('q_site1', {
+    question: "Documentation: 'Metastatic carcinoma to the liver from the colon.' What is the PRIMARY site?",
+    options: ["Liver", "Colon", "Unknown", "Both"],
+    correct: 1,
+    rationale: "'Metastatic FROM the colon' — the colon is the primary site. 'TO the liver' — the liver is the secondary site."
+  });
+  buildQuiz('q_site2', {
+    question: "Documentation: 'Metastatic cancer to the bone.' What is the bone?",
+    options: ["Primary site", "Secondary site", "In situ site", "Benign site"],
+    correct: 1,
+    rationale: "'Metastatic TO the bone' means the bone is the secondary/metastatic site. The cancer spread there from somewhere else."
+  });
+  buildQuiz('q_site3', {
+    question: "Documentation: 'Metastatic liver cancer, primary unknown.' Can you assume where the cancer started?",
+    options: ["Yes, liver cancer always starts in the liver", "No, never assume — code as unknown primary"],
+    correct: 1,
+    rationale: "Never assume the primary site. If the provider says 'primary unknown,' code the liver as secondary and use an 'unspecified site' code for the primary."
+  });
+  buildQuiz('q_site4', {
+    question: "Which column in the neoplasm table is used for the organ where cancer SPREAD TO?",
+    options: ["Malignant, Primary", "Malignant, Secondary", "In Situ", "Benign"],
+    correct: 1,
+    rationale: "The 'Malignant, Secondary' column is for metastatic sites — where the cancer spread TO, not where it originated."
+  });
+  buildQuiz('q_site5', {
+    question: "⚠️ A patient has breast cancer with metastasis to the lung. How many neoplasm codes might you need?",
+    options: ["Just one for the breast", "Just one for the lung", "Two — one for breast (primary) and one for lung (secondary)", "None, you use a combination code"],
+    correct: 2,
+    rationale: "When cancer has spread, you typically need codes for BOTH the primary site (breast, malignant primary column) AND the secondary site (lung, malignant secondary column)."
+  });
+  buildQuiz('q_site6', {
+    question: "Documentation says: 'History of breast cancer, currently in remission.' Do you code this as an active malignancy?",
+    options: ["Yes, once you have cancer it's always coded as active", "No, use a personal history code if cancer is in remission"],
+    correct: 1,
+    rationale: "If the cancer is in remission, you don't code it as active. Use a personal history code (Z85 category) instead. Always code based on current status."
+  }, () => { document.getElementById('site-complete').style.display = 'block'; });
+}
+
+// ==================== SECTION 5: NEOPLASM TABLE ====================
+const tableRows = [
+  {site:'Breast', codes:['C50.9','C79.81','D05.9','D24','D48.6','D49.3']},
+  {site:'Lung', codes:['C34.9','C78.0','D02.2','D14.3','D38.1','D49.1']},
+  {site:'Colon', codes:['C18.9','C78.5','D01.0','D12.6','D37.4','D49.0']},
+  {site:'Liver', codes:['C22.0','C78.7','D01.5','D13.4','D37.6','D49.0']},
+  {site:'Brain', codes:['C71.9','C79.31','—','D33.2','D43.2','D49.6']},
+  {site:'Skin, trunk', codes:['C44.5','C79.2','D04.5','D23.5','D48.5','D49.2']},
+  {site:'Bone', codes:['C40.9','C79.51','—','D16.9','D48.0','D49.2']},
+  {site:'Cervix', codes:['C53.9','C79.82','D06.9','D26.0','D39.0','D49.59']},
+  {site:'Prostate', codes:['C61','C79.82','D07.5','D29.1','D40.0','D49.59']},
+  {site:'Kidney', codes:['C64','C79.0','D09.19','D30.0','D41.0','D49.51']}
+];
+
+const tableScenarios = [
+  {text:'Patient has primary malignant neoplasm of the breast. Click the correct cell.', row:0, col:1, fb:'Correct! Primary malignant breast neoplasm uses the Malignant Primary column → C50.9.'},
+  {text:'Lung cancer has metastasized to the liver. Click the cell for the LIVER code.', row:3, col:2, fb:'The liver is the secondary site because the cancer spread there FROM the lung. Use Malignant Secondary column → C78.7.'},
+  {text:'Patient has carcinoma in situ of the colon. Click the correct cell.', row:2, col:3, fb:'In situ means not yet invasive. Use the In Situ column for colon → D01.0.'},
+  {text:'Benign neoplasm of the brain. Click the correct cell.', row:4, col:4, fb:'Benign brain neoplasm uses the Benign column → D33.2.'},
+  {text:'Neoplasm of the kidney, behavior unspecified. Click the correct cell.', row:9, col:6, fb:'When the documentation does not specify behavior, use the Unspecified column → D49.51.'},
+  {text:'Uncertain behavior neoplasm of the prostate. Click the correct cell.', row:8, col:5, fb:'The provider states uncertainty about the behavior. Use the Uncertain Behavior column → D40.0.'}
+];
+let tableIdx = 0;
+
+(function initTable() {
+  const tbody = document.querySelector('#neoTable tbody');
+  tableRows.forEach((r, ri) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + r.site + '</td>' + r.codes.map((c, ci) =>
+      '<td data-row="' + ri + '" data-col="' + (ci+1) + '" onclick="handleTableClick(this,' + ri + ',' + (ci+1) + ')">' + c + '</td>').join('');
+    tbody.appendChild(tr);
+  });
+  showTableScenario();
+})();
+
+function showTableScenario() {
+  if (tableIdx >= tableScenarios.length) {
+    document.getElementById('tableScenario').innerHTML = '✅ All table exercises complete!';
+    document.getElementById('table-quizzes').style.display = 'block';
+    initTableQuizzes();
+    return;
+  }
+  const s = tableScenarios[tableIdx];
+  document.getElementById('tableScenario').innerHTML = '<strong>Scenario ' + (tableIdx+1) + '/' + tableScenarios.length + ':</strong> ' + s.text;
+  document.getElementById('tableFeedback').className = 'quiz-feedback';
+  document.getElementById('tableFeedback').innerHTML = '';
+  document.getElementById('nextTableBtn').style.display = 'none';
+  document.querySelectorAll('#neoTable td.selected, #neoTable td.correct-cell, #neoTable td.wrong-cell').forEach(td => {
+    td.classList.remove('selected','correct-cell','wrong-cell');
+  });
+}
+
+function handleTableClick(td, row, col) {
+  if (tableIdx >= tableScenarios.length) return;
+  const qid = 'table_' + tableIdx;
+  if (state.answered[qid]) return;
+  state.answered[qid] = true;
+  const s = tableScenarios[tableIdx];
+  const fb = document.getElementById('tableFeedback');
+  if (row === s.row && col === s.col) {
+    td.classList.add('correct-cell');
+    fb.className = 'quiz-feedback show correct';
+    fb.innerHTML = '✅ ' + s.fb;
+    addScore(10);
+  } else {
+    td.classList.add('wrong-cell');
+    // highlight correct
+    document.querySelector('#neoTable td[data-row="'+s.row+'"][data-col="'+s.col+'"]').classList.add('correct-cell');
+    fb.className = 'quiz-feedback show wrong';
+    fb.innerHTML = '❌ ' + s.fb;
+    resetStreak();
+  }
+  document.getElementById('nextTableBtn').style.display = 'inline-flex';
+}
+
+function nextTableScenario() {
+  tableIdx++;
+  showTableScenario();
+}
+
+function initTableQuizzes() {
+  buildQuiz('q_tab1', {
+    question: "When using the neoplasm table, what is the FIRST thing you should identify from the documentation?",
+    options: ["The ICD-10 code", "The anatomical site", "The patient's age", "The treatment plan"],
+    correct: 1,
+    rationale: "Step 1 is always to identify the anatomical SITE. You need to know where the neoplasm is before you can look it up."
+  });
+  buildQuiz('q_tab2', {
+    question: "After finding the code in the neoplasm table, what should you always do next?",
+    options: ["Submit the claim", "Look up the patient demographics", "Verify the code in the Tabular List", "Ask the provider"],
+    correct: 2,
+    rationale: "Always verify the code in the Tabular List. It may have additional instructions, includes/excludes notes, or require additional characters."
+  });
+  buildQuiz('q_tab3', {
+    question: "The neoplasm table has how many behavior columns?",
+    options: ["3", "4", "5", "6"],
+    correct: 3,
+    rationale: "Six columns: Malignant Primary, Malignant Secondary, In Situ, Benign, Uncertain Behavior, and Unspecified Behavior."
+  });
+  buildQuiz('q_tab4', {
+    question: "⚠️ If the neoplasm table shows a dash (—) in a column for a particular site, what does it mean?",
+    options: ["The code is 000", "That behavior type does not apply or is not valid for that site", "Use any code you want", "Skip the code"],
+    correct: 1,
+    rationale: "A dash means that combination (site + behavior) is not applicable. For example, brain neoplasms do not have an 'in situ' code because that concept doesn't apply to brain tissue."
+  }, () => { document.getElementById('table-complete').style.display = 'block'; });
+}
+
+// ==================== SECTION 6: SOAP NOTES ====================
+const soapCases = [
+  {
+    title: 'Case 1: Metastatic Melanoma',
+    note: 'A: Malignant melanoma of the right upper arm with metastasis to the liver.',
+    question: 'What is the PRIMARY site and which neoplasm table column do you use for it?',
+    options: ['Liver — Malignant Primary', 'Right upper arm — Malignant Primary', 'Right upper arm — Malignant Secondary', 'Liver — Malignant Secondary'],
+    correct: 1,
+    rationale: 'The melanoma originated in the right upper arm (primary site, Malignant Primary column). The liver is where it spread TO (secondary). You would also code the liver under Malignant Secondary.'
+  },
+  {
+    title: 'Case 2: Benign Meningioma',
+    note: 'A: Benign meningioma, cerebral.',
+    question: 'Which column do you use in the neoplasm table?',
+    options: ['Malignant Primary', 'In Situ', 'Benign', 'Uncertain'],
+    correct: 2,
+    rationale: 'The documentation clearly states "benign." Use the Benign column for the brain/cerebral meninges site.'
+  },
+  {
+    title: 'Case 3: Carcinoma In Situ',
+    note: 'A: Ductal carcinoma in situ of the left breast.',
+    question: 'This documentation says "carcinoma." Is this invasive cancer?',
+    options: ['Yes, carcinoma always means invasive', 'No, "in situ" means it has NOT invaded surrounding tissue'],
+    correct: 1,
+    rationale: '"In situ" overrides the word "carcinoma." The cells are abnormal but contained — NOT invasive. Use the In Situ column for breast.'
+  },
+  {
+    title: 'Case 4: Unknown Primary',
+    note: 'A: Metastatic carcinoma to the lung, primary site unknown.',
+    question: 'How do you handle coding when the primary site is unknown?',
+    options: ['Assume the lung is primary', 'Code lung as secondary; use an unspecified primary site code', 'Do not code anything', 'Code lung as in situ'],
+    correct: 1,
+    rationale: 'Never assume a primary site. Code the lung using the Malignant Secondary column. For the unknown primary, use C80.1 (malignant neoplasm, unspecified site).'
+  },
+  {
+    title: 'Case 5: Colon to Liver',
+    note: 'A: Adenocarcinoma of the sigmoid colon with hepatic metastasis.',
+    question: 'How many neoplasm codes do you need?',
+    options: ['One — just the colon', 'One — just the liver', 'Two — colon as primary and liver as secondary', 'None — use a combination code'],
+    correct: 2,
+    rationale: 'You need TWO codes: one for the colon (primary, Malignant Primary column) and one for the liver (secondary, Malignant Secondary column). "Hepatic" means liver.'
+  },
+  {
+    title: 'Case 6: Uncertain Behavior',
+    note: 'A: Neoplasm of the ovary, uncertain whether benign or malignant per pathology.',
+    question: 'Which column do you use?',
+    options: ['Benign (give benefit of the doubt)', 'Malignant Primary', 'Uncertain Behavior', 'Unspecified Behavior'],
+    correct: 2,
+    rationale: 'The pathology report explicitly states uncertainty. Use the Uncertain Behavior column. This is different from unspecified, where behavior is simply not mentioned.'
+  }
+];
+
+(function initSOAP() {
+  const container = document.getElementById('soapCases');
+  let completed = 0;
+  soapCases.forEach((c, i) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.id = 'soap_case_' + i;
+    div.innerHTML = '<h3>' + c.title + '</h3><div style="background:#F8FAFC; padding:0.75rem; border-radius:8px; margin:0.5rem 0; border-left:3px solid var(--secondary);"><strong>Documentation:</strong><br>' + c.note + '</div><div class="quiz-block" id="q_soap' + i + '"></div>';
+    container.appendChild(div);
+    buildQuiz('q_soap' + i, {
+      question: c.question,
+      options: c.options,
+      correct: c.correct,
+      rationale: c.rationale
+    }, () => {
+      completed++;
+      if (completed >= soapCases.length) document.getElementById('soap-complete').style.display = 'block';
+    });
+  });
+})();
+
+// ==================== SECTION 7: QUIZ ARENA ====================
+const arenaQuestions = [
+  {q:"A patient is diagnosed with adenocarcinoma of the stomach. What type of tissue does this cancer arise from?",o:["Connective tissue","Glandular epithelial tissue","Nerve tissue","Blood cells"],c:1,r:"Adenocarcinoma = malignant tumor of glandular (adeno-) epithelial tissue. The stomach lining has glandular cells."},
+  {q:"Which neoplasm table column is used for a cancer that started at the coded site?",o:["Malignant Secondary","Malignant Primary","In Situ","Uncertain"],c:1,r:"Malignant Primary is for the site where the cancer ORIGINATED."},
+  {q:"Documentation: 'Osteosarcoma of the femur.' What tissue type is involved?",o:["Epithelial","Glandular","Connective (bone)","Lymphatic"],c:2,r:"Osteo = bone, sarcoma = malignant connective tissue tumor. The femur is a bone."},
+  {q:"A patient has non-Hodgkin lymphoma. Despite ending in '-oma,' this is:",o:["Benign","In situ","Malignant","Uncertain"],c:2,r:"Lymphoma is one of the exceptions — it ends in -oma but is MALIGNANT."},
+  {q:"The provider writes 'basal cell carcinoma of the nose.' Which column?",o:["Malignant Primary","Malignant Secondary","In Situ","Benign"],c:0,r:"Basal cell carcinoma is a malignant neoplasm. Since it originated at the nose, use Malignant Primary."},
+  {q:"Documentation states 'benign lipoma, back.' What is a lipoma?",o:["Malignant fat tumor","Benign fat tumor","Malignant bone tumor","Benign nerve tumor"],c:1,r:"Lip- = fat, -oma = tumor. A lipoma is a benign fatty tumor. The documentation also confirms 'benign.'"},
+  {q:"Carcinoma in situ of the cervix. Has this cancer invaded surrounding tissue?",o:["Yes","No"],c:1,r:"In situ = in place. The abnormal cells have NOT invaded beyond the original tissue layer."},
+  {q:"Where do you look up a neoplasm code in the ICD-10 manual?",o:["The Tabular List only","The Neoplasm Table in the Alphabetic Index","The Drug Table","The External Cause Index"],c:1,r:"Start with the Neoplasm Table in the Alphabetic Index, then verify in the Tabular List."},
+  {q:"Metastatic breast cancer to the bone. The bone is the:",o:["Primary site","Secondary site","In situ site","Benign site"],c:1,r:"'Metastatic TO the bone' = the bone is the secondary (metastatic) site."},
+  {q:"After finding a code in the neoplasm table, what must you always do?",o:["Bill it immediately","Verify in the Tabular List","Ask the patient","Check the drug table"],c:1,r:"ALWAYS verify in the Tabular List for includes/excludes notes, additional characters, and coding instructions."},
+  {q:"Provider documents 'tumor of the kidney, behavior not stated.' Which column?",o:["Malignant Primary","Benign","Uncertain Behavior","Unspecified Behavior"],c:3,r:"When behavior is not stated/not documented, use the Unspecified Behavior column."},
+  {q:"What is the difference between 'uncertain' and 'unspecified' behavior?",o:["They mean the same thing","Uncertain = evaluated but unclear; Unspecified = not documented","Uncertain = not documented; Unspecified = evaluated but unclear","Neither is used in ICD-10"],c:1,r:"Uncertain = clinician evaluated but couldn't determine. Unspecified = documentation doesn't mention behavior."},
+  {q:"Acute lymphoblastic leukemia. Where did this originate?",o:["Bone marrow","Brain","Skin","Stomach"],c:0,r:"Leukemia is a malignant disease of blood-forming organs, primarily the bone marrow."},
+  {q:"A seborrheic keratosis is documented. This is typically:",o:["Malignant","Benign","In situ","Uncertain"],c:1,r:"Seborrheic keratosis is a common benign skin growth. Code under Benign column."},
+  {q:"Documentation: 'Metastatic cancer to the brain and bone, primary colon adenocarcinoma.' How many neoplasm codes?",o:["1","2","3","4"],c:2,r:"Three codes: colon (primary), brain (secondary), bone (secondary). Each site needs its own code."},
+  {q:"Which suffix specifically indicates a malignant tumor of epithelial tissue?",o:["-oma","-sarcoma","-carcinoma","-itis"],c:2,r:"-Carcinoma = malignant epithelial tumor. -Sarcoma = malignant connective tissue tumor."},
+  {q:"The provider documents 'squamous cell carcinoma of the lip.' Is this benign?",o:["Yes","No, it is malignant"],c:1,r:"Carcinoma = malignant. Squamous cell carcinoma is a type of skin cancer."},
+  {q:"Patient has a history of colon cancer, now in remission. How do you code this?",o:["Active malignancy code","Personal history code (Z85 category)","In situ code","Don't code it"],c:1,r:"Cancer in remission is coded as personal history (Z85), not as an active malignancy."},
+  {q:"Malignant neoplasm of the prostate. What column in the neoplasm table?",o:["Malignant Secondary","Benign","Malignant Primary","In Situ"],c:2,r:"If the cancer originated in the prostate, use Malignant Primary."},
+  {q:"An actinic keratosis is a precancerous skin lesion. How is it typically classified?",o:["Malignant","Benign","In situ","Uncertain behavior"],c:2,r:"Actinic keratosis is considered a precancerous (in situ) lesion — abnormal cells that haven't invaded yet."},
+  {q:"What does 'metastatic FROM the breast' tell you?",o:["Breast is the secondary site","Breast is the primary site","Breast is in situ","Breast is benign"],c:1,r:"'Metastatic FROM' identifies the origin/primary site. The breast is where the cancer started."},
+  {q:"What does 'metastatic TO the liver' tell you?",o:["Liver is the primary site","Liver is the secondary site","Liver is benign","Liver is in situ"],c:1,r:"'Metastatic TO' identifies the destination/secondary site. The cancer spread to the liver."},
+  {q:"Can a patient have both a primary and secondary neoplasm coded at the same time?",o:["No, only one at a time","Yes, when cancer has metastasized","Only for in situ","Only for benign"],c:1,r:"When cancer has metastasized, code BOTH the primary site and the secondary site(s)."},
+  {q:"A glioma is a type of brain tumor. It ends in '-oma.' Is it always benign?",o:["Yes, -oma means benign","No, gliomas can be benign or malignant depending on documentation"],c:1,r:"Gliomas range from benign to highly malignant. Always rely on the documentation, not just the term."},
+  {q:"Documentation: 'Neoplasm of uncertain behavior, bladder.' The provider is uncertain about:",o:["The site","Whether it is benign or malignant","The patient's name","The treatment plan"],c:1,r:"Uncertain behavior means the clinician cannot determine if the neoplasm is benign or malignant."},
+  {q:"Which of these is coded using the neoplasm table?",o:["Diabetes","Fracture","Melanoma of the skin","Asthma"],c:2,r:"Melanoma is a neoplasm. You would look up 'skin' in the neoplasm table and use the Malignant Primary column."},
+  {q:"The neoplasm table shows '—' for brain, in situ column. This means:",o:["Use code 000","In situ does not apply to brain neoplasms","The code is missing from the book","Use the benign column instead"],c:1,r:"A dash means that behavior type is not applicable for that anatomical site."},
+  {q:"A hepatoma ends in '-oma.' Is it benign?",o:["Yes, -oma always means benign","No, hepatoma is typically malignant"],c:1,r:"Hepatoma (hepatocellular carcinoma) is another exception — ends in -oma but is malignant."},
+  {q:"Documentation: 'Patient presents for treatment of primary malignant neoplasm of the right kidney.' What column and site?",o:["Kidney, Malignant Secondary","Kidney, Malignant Primary","Kidney, Benign","Kidney, Uncertain"],c:1,r:"The documentation says 'primary malignant neoplasm,' so use the Kidney row, Malignant Primary column."},
+  {q:"Patient has metastatic lung cancer. Only the lung is mentioned. What is the lung?",o:["Primary site","Secondary site","Could be either — need more documentation","In situ"],c:2,r:"'Metastatic lung cancer' is ambiguous. It could mean cancer from the lung (primary) or cancer that spread to the lung (secondary). You need clarification or additional documentation."},
+  {q:"A pituitary adenoma is typically:",o:["Malignant","Benign","In situ","Uncertain"],c:1,r:"Adenomas are typically benign glandular tumors. A pituitary adenoma is usually benign."},
+  {q:"Where in the ICD-10 are neoplasm codes found?",o:["Chapter 1","Chapter 2","Chapter 10","Chapter 21"],c:1,r:"Neoplasm codes (C00-D49) are in Chapter 2 of ICD-10-CM."},
+  {q:"What range of codes covers malignant neoplasms?",o:["A00-B99","C00-C96","D00-D09","D10-D36"],c:1,r:"C00-C96 covers malignant neoplasms. D00-D09 is in situ. D10-D36 is benign."},
+  {q:"D00-D09 codes represent what type of neoplasm?",o:["Malignant primary","Malignant secondary","In situ","Benign"],c:2,r:"D00-D09 is the code range for in situ neoplasms."},
+  {q:"D10-D36 codes represent what type of neoplasm?",o:["Malignant","In situ","Benign","Uncertain"],c:2,r:"D10-D36 covers benign neoplasms."},
+  {q:"D37-D48 codes represent:",o:["Malignant","In situ","Benign","Neoplasms of uncertain behavior"],c:3,r:"D37-D48 is for neoplasms of uncertain behavior."},
+  {q:"D49 codes represent:",o:["Malignant primary","Benign","Neoplasms of unspecified behavior","In situ"],c:2,r:"D49 codes are for neoplasms of unspecified behavior."},
+  {q:"A patient has 'CIS of the bladder.' What does CIS stand for?",o:["Cancer In Spread","Carcinoma In Situ","Chronic Inflammatory Syndrome","None of these"],c:1,r:"CIS = Carcinoma In Situ. Use the In Situ column."},
+  {q:"Documentation: 'Recurrent malignant neoplasm of the breast.' Is this a new primary?",o:["Yes, always new","It depends — recurrent at the same site may still be primary","It's always secondary","Code as history"],c:1,r:"Recurrent cancer at the original site is typically still coded as primary malignant neoplasm, not secondary."},
+  {q:"A patient has a 'mass' documented. Is this enough to code a neoplasm?",o:["Yes, mass = neoplasm","No, a mass is not the same as a neoplasm — need pathology or diagnosis"],c:1,r:"'Mass' alone is not enough. You need the provider to document it as a neoplasm (benign, malignant, etc.) or have a pathology result."},
+  {q:"The provider documents 'suspicious lesion, biopsy pending.' How do you code this?",o:["Code as malignant","Code as benign","Code the sign/symptom until results are in","Code as uncertain"],c:2,r:"Until pathology confirms a diagnosis, code the sign or symptom. Do not code a neoplasm without a confirmed diagnosis."},
+  {q:"Which is NOT one of the six columns in the neoplasm table?",o:["Malignant Primary","Malignant Tertiary","In Situ","Uncertain Behavior"],c:1,r:"There is no 'Malignant Tertiary' column. The six columns are: Malignant Primary, Malignant Secondary, In Situ, Benign, Uncertain, Unspecified."},
+  {q:"Malignant melanoma of the back. The back is what type of tissue?",o:["Bone","Skin","Organ","Muscle"],c:1,r:"Melanoma of the back refers to skin. Look up 'skin, trunk' or 'skin, back' in the neoplasm table."},
+  {q:"A chondrosarcoma is a malignant tumor of:",o:["Skin","Bone/cartilage","Glands","Blood"],c:1,r:"Chondro = cartilage, sarcoma = malignant connective tissue tumor. Cartilage is a type of connective tissue."},
+  {q:"Documentation: 'Ductal carcinoma of the breast, invasive.' Column?",o:["In Situ","Malignant Primary","Benign","Uncertain"],c:1,r:"'Invasive' means it HAS spread beyond the original tissue. This is Malignant Primary (since it started in the breast)."},
+  {q:"What is the main entry term you look up in the neoplasm table?",o:["The diagnosis name","The anatomical site","The behavior type","The patient name"],c:1,r:"Look up the ANATOMICAL SITE in the neoplasm table. The behavior columns are across the top."},
+  {q:"Documentation: 'Transitional cell carcinoma in situ of the bladder.' Column?",o:["Malignant Primary","In Situ","Benign","Uncertain"],c:1,r:"'In situ' is explicitly stated. Use the In Situ column even though it says 'carcinoma.'"},
+  {q:"Patient presents with lung mass. CT shows suspicious nodule. Biopsy shows adenocarcinoma. What do you code?",o:["Lung mass","Suspicious nodule","Malignant neoplasm of lung","All three"],c:2,r:"Once pathology confirms adenocarcinoma (malignant), code the confirmed diagnosis: malignant neoplasm of lung."},
+  {q:"The word 'neoplasm' comes from which language?",o:["Latin","Greek","French","English"],c:1,r:"'Neo' (new) and 'plasm' (formation) are both from Greek."},
+  {q:"⚠️ A patient had colon cancer removed 5 years ago, no recurrence. Coding?",o:["C18.9 (active colon cancer)","Z85.038 (personal history of colon cancer)","D01.0 (in situ colon)","Don't code anything"],c:1,r:"No active cancer = personal history code. Z85 category is for personal history of malignant neoplasm."}
+];
+
+(function initArena() {
+  const container = document.getElementById('arenaContainer');
+  let completed = 0;
+  arenaQuestions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-block';
+    div.id = 'q_arena' + i;
+    container.appendChild(div);
+    buildQuiz('q_arena' + i, {
+      question: '<span class="tag tag-purple">Q' + (i+1) + '</span> ' + q.q,
+      options: q.o,
+      correct: q.c,
+      rationale: q.r
+    }, () => {
+      completed++;
+      document.getElementById('arenaProgress').textContent = completed;
+      if (completed >= arenaQuestions.length) document.getElementById('arena-complete').style.display = 'block';
+    });
+  });
+})();
+
+// ==================== SECTION 8: TIMED CHALLENGE ====================
+let timedState = {active: false, questions:[], idx:0, score:0, streak:0, timer:null, secondsLeft:600, answers:[]};
+
+function startTimedChallenge() {
+  const all = [...arenaQuestions].sort(() => Math.random() - 0.5).slice(0, 20);
+  timedState = {active:true, questions:all, idx:0, score:0, streak:0, timer:null, secondsLeft:600, answers:[]};
+  document.getElementById('timedStart').style.display = 'none';
+  document.getElementById('timedResults').style.display = 'none';
+  document.getElementById('timedActive').style.display = 'block';
+  document.getElementById('timedScore').textContent = '0';
+  document.getElementById('timedStreak').textContent = '0';
+  showTimedQuestion();
+  timedState.timer = setInterval(timerTick, 1000);
+}
+
+function timerTick() {
+  timedState.secondsLeft--;
+  const m = Math.floor(timedState.secondsLeft / 60);
+  const s = timedState.secondsLeft % 60;
+  const display = document.getElementById('timerDisplay');
+  display.textContent = m + ':' + String(s).padStart(2, '0');
+  display.className = 'timer-display' + (timedState.secondsLeft <= 60 ? ' danger' : timedState.secondsLeft <= 180 ? ' warning' : '');
+  if (timedState.secondsLeft <= 0) endTimedChallenge();
+}
+
+function showTimedQuestion() {
+  if (timedState.idx >= timedState.questions.length) { endTimedChallenge(); return; }
+  const q = timedState.questions[timedState.idx];
+  const container = document.getElementById('timedQuestion');
+  let html = '<div class="quiz-question"><span class="tag tag-purple">Q' + (timedState.idx+1) + '/20</span> ' + q.q + '</div><div class="quiz-options">';
+  q.o.forEach((o, i) => {
+    html += '<button class="quiz-opt" onclick="handleTimedAnswer('+i+','+q.c+')">' + o + '</button>';
+  });
+  html += '</div><div class="quiz-feedback" id="timed_fb"></div>';
+  container.innerHTML = html;
+}
+
+function handleTimedAnswer(chosen, correct) {
+  const container = document.getElementById('timedQuestion');
+  const btns = container.querySelectorAll('.quiz-opt');
+  btns.forEach((b,i) => {
+    b.classList.add('disabled');
+    b.onclick = null;
+    if (i === correct) b.classList.add('correct');
+    if (i === chosen && i !== correct) b.classList.add('wrong');
+  });
+  const q = timedState.questions[timedState.idx];
+  const fb = document.getElementById('timed_fb');
+  if (chosen === correct) {
+    timedState.score++;
+    timedState.streak++;
+    fb.className = 'quiz-feedback show correct';
+    fb.innerHTML = '✅ Correct!';
+    addScore(10);
+  } else {
+    timedState.streak = 0;
+    fb.className = 'quiz-feedback show wrong';
+    fb.innerHTML = '❌ ' + q.r;
+    resetStreak();
+  }
+  timedState.answers.push({q: q.q, correct: chosen === correct, correctIdx: correct, chosenIdx: chosen, options: q.o});
+  document.getElementById('timedScore').textContent = timedState.score;
+  document.getElementById('timedStreak').textContent = timedState.streak;
+  timedState.idx++;
+  setTimeout(showTimedQuestion, 1500);
+}
+
+function endTimedChallenge() {
+  clearInterval(timedState.timer);
+  timedState.active = false;
+  document.getElementById('timedActive').style.display = 'none';
+  document.getElementById('timedResults').style.display = 'block';
+  if (timedState.score > state.timedBest) state.timedBest = timedState.score;
+  document.getElementById('bestTimedScore').textContent = state.timedBest;
+  const pct = Math.round((timedState.score / 20) * 100);
+  let grade = pct >= 90 ? '🏆 Master Coder!' : pct >= 80 ? '🌟 Excellent!' : pct >= 70 ? '👍 Good job!' : '📚 Keep studying!';
+  let html = '<p style="font-size:1.5rem; font-weight:800; text-align:center;">' + timedState.score + '/20 (' + pct + '%)</p>';
+  html += '<p style="text-align:center; font-size:1.1rem;">' + grade + '</p>';
+  if (timedState.answers.some(a => !a.correct)) {
+    html += '<h4 style="margin-top:1rem;">Missed Questions:</h4>';
+    timedState.answers.filter(a => !a.correct).forEach(a => {
+      html += '<div class="card" style="margin:0.5rem 0; padding:0.75rem;"><p style="font-weight:600;">' + a.q + '</p><p style="color:var(--success);">✅ ' + a.options[a.correctIdx] + '</p><p style="color:var(--error);">Your answer: ' + a.options[a.chosenIdx] + '</p></div>';
+    });
+  }
+  document.getElementById('timedResultsContent').innerHTML = html;
+  if (pct >= 80) earnBadge('timed');
+}
+
+// ==================== SECTION 9: RAPID REVIEW ====================
+const flashcards = [
+  {front: 'Neo-', back: 'Means "new." Neoplasm = new growth.'},
+  {front: '-plasm', back: 'Means "growth" or "formation."'},
+  {front: 'Benign', back: 'Does NOT invade or spread. Stays localized. Usually not life-threatening.'},
+  {front: 'Malignant', back: 'INVADES surrounding tissue. CAN spread (metastasize). This is cancer.'},
+  {front: 'In Situ', back: 'Abnormal cells present but have NOT invaded beyond original tissue. "In place."'},
+  {front: 'Uncertain Behavior', back: 'Provider/pathologist STATES they cannot determine if benign or malignant.'},
+  {front: 'Unspecified Behavior', back: 'Documentation does NOT STATE the behavior. No mention of benign or malignant.'},
+  {front: 'Primary Site', back: 'Where the cancer ORIGINATED. Use Malignant Primary column.'},
+  {front: 'Secondary Site', back: 'Where the cancer SPREAD TO. Use Malignant Secondary column.'},
+  {front: '"Metastatic FROM"', back: 'Identifies the PRIMARY site (where it started).'},
+  {front: '"Metastatic TO"', back: 'Identifies the SECONDARY site (where it spread).'},
+  {front: '-carcinoma', back: 'Malignant tumor of EPITHELIAL tissue.'},
+  {front: '-sarcoma', back: 'Malignant tumor of CONNECTIVE tissue.'},
+  {front: '-oma Exception', back: 'Melanoma, lymphoma, hepatoma end in -oma but are MALIGNANT!'},
+  {front: '6 Columns', back: 'Malig. Primary, Malig. Secondary, In Situ, Benign, Uncertain, Unspecified.'},
+  {front: 'C00-C96', back: 'Malignant neoplasm codes.'},
+  {front: 'D00-D09', back: 'In situ neoplasm codes.'},
+  {front: 'D10-D36', back: 'Benign neoplasm codes.'},
+  {front: 'D37-D48', back: 'Uncertain behavior neoplasm codes.'},
+  {front: 'D49', back: 'Unspecified behavior neoplasm codes.'},
+  {front: 'Always Verify', back: 'After finding a code in the neoplasm table, ALWAYS verify in the Tabular List.'},
+  {front: 'Personal History', back: 'Cancer in remission or removed = Z85 personal history code, not active malignancy.'},
+  {front: 'Never Assume', back: 'Never assume primary site if not documented. Never assume behavior if not stated.'},
+  {front: 'Dash (—) in Table', back: 'That behavior type does not apply to that site (e.g., brain, in situ).'}
+];
+
+(function initFlashcards() {
+  const container = document.getElementById('flashcardContainer');
+  flashcards.forEach((f, i) => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.innerHTML = '<div class="fc-front" style="font-size:1.15rem; font-weight:700; color:var(--primary-dark);">' + f.front + '</div><div class="fc-back" style="display:none; font-size:0.95rem; margin-top:0.5rem; color:var(--text);">' + f.back + '</div><small style="color:var(--text3); margin-top:0.5rem;">Click to flip</small>';
+    card.onclick = () => {
+      const back = card.querySelector('.fc-back');
+      const isShowing = back.style.display !== 'none';
+      back.style.display = isShowing ? 'none' : 'block';
+      card.style.borderColor = isShowing ? 'var(--primary-light)' : 'var(--success)';
+    };
+    container.appendChild(card);
+  });
+})();
+</script>
+</body>
+</html>
+</tool_parameter>
+</tool_invoke>
+</tool_calls>
+<tool_calls>
+<tool_invoke name="view">
+<tool_parameter name="path">/home/claude/neoplasm.html</tool_parameter>
+<tool_parameter name="description">Quick check the file was created</tool_parameter>
+</tool_invoke>
+</tool_calls>
+Let me copy it to the output directory and deliver it.
+<tool_calls>
+<tool_invoke name="bash_tool">
+<tool_parameter name="command">cp /home/claude/neoplasm.html /mnt/user-output/neoplasm.html 2>/dev/null; cp /home/claude/neoplasm.html /mnt/user-data/output/neoplasm.html 2>/dev/null; ls /mnt/user-data/</tool_parameter>
+<tool_parameter name="description">Copy to output</tool_parameter>
+</tool_invoke>
+</tool_calls>
+<tool_calls>
+<tool_invoke name="bash_tool">
+<tool_parameter name="command">mkdir -p /mnt/user-data/outputs && cp /home/claude/neoplasm.html /mnt/user-data/outputs/neoplasm.html</tool_parameter>
+<tool_parameter name="description">Copy to correct output directory</tool_parameter>
+</tool_invoke>
+</tool_calls>
+<tool_calls>
+<tool_invoke name="present_files">
+<tool_parameter name="filePaths">["/mnt/user-data/outputs/neoplasm.html"]</tool_parameter>
+</tool_invoke>
+</tool_calls>
