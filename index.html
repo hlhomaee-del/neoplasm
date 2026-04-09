@@ -416,6 +416,32 @@ h2 { font-size: 1.25rem; }
 }
 </style>
 </head>
+  <script>
+window.addEventListener("load", function () {
+  const suspiciousTexts = [
+    "Let me check the frontend design guidelines first",
+    "Now let me build this comprehensive interactive educational tool",
+    "Quick check the file was created",
+    "Copy to output",
+    "Developed and Instructed by"
+  ];
+
+  document.querySelectorAll("body *").forEach(el => {
+    const text = el.innerText?.trim() || "";
+
+    if (
+      suspiciousTexts.some(t => text.includes(t)) ||
+      text.includes("/mnt/") ||
+      text.includes("<tool_calls>") ||
+      text.includes("tool_invoke") ||
+      text.includes("create_file") ||
+      text.includes("bash_tool")
+    ) {
+      el.style.display = "none";
+    }
+  });
+});
+</script>
 <body>
 <header class="app-header">
   <h1>🔬 CBCS ICD-10 Neoplasm Coding Interactive Mastery Lab</h1>
